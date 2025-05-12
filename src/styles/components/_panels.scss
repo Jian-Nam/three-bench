@@ -1,0 +1,30 @@
+.panel {
+  background-color: $color-background-secondary;
+  border-radius: $border-radius-l;
+  padding: $spacing-l;
+  margin-bottom: $spacing-l;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-m;
+}
+
+.panel-title {
+  font-size: $font-size-l;
+  font-weight: 500;
+  color: $color-text-secondary;
+}
+
+.panel-content {
+  font-size: $font-size-m;
+}
+
+.panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: $spacing-l;
+}

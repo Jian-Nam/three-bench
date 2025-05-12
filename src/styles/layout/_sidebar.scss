@@ -1,0 +1,41 @@
+.controls-panel,
+.tracker-panel {
+  width: $sidebar-width;
+  padding: $spacing-xxl;
+  background-color: $color-background-secondary;
+  color: $color-text-primary;
+  overflow-y: auto;
+  text-align: left;
+  height: calc(100vh - $header-height);
+  margin-top: $header-height; /* Space for tabs */
+}
+
+.controls-panel h1,
+.tracker-panel h1 {
+  font-size: $font-size-xxl;
+  margin-bottom: $spacing-xxl;
+  text-align: left;
+}
+
+.control-group {
+  margin-bottom: $spacing-xxl;
+  text-align: left;
+}
+
+.control-group h2 {
+  font-size: $font-size-xl;
+  margin-bottom: $spacing-m;
+  color: $color-text-secondary;
+  text-align: left;
+}
+
+.stats-toggle {
+  margin-top: $spacing-xl;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.stats-toggle input {
+  margin-right: $spacing-m;
+}

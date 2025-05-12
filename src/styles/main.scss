@@ -1,0 +1,22 @@
+// Base styles - variables first!
+@import "base/variables";
+@import "base/reset";
+@import "base/typography";
+@import "base/layout";
+
+// Components
+@import "components/buttons";
+@import "components/tabs";
+@import "components/object-tracker";
+@import "components/performance-monitor";
+@import "components/tree";
+@import "components/panels";
+
+// Layout
+@import "layout/app";
+@import "layout/canvas";
+@import "layout/sidebar";
+
+// Pages
+@import "pages/test-page";
+@import "pages/benchmark-page";

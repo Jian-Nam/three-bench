@@ -1,0 +1,107 @@
+// Common button styles
+button {
+  background-color: $color-button;
+  color: $color-text-primary;
+  border: none;
+  padding: $spacing-xs $spacing-l;
+  border-radius: $border-radius-l;
+  margin-right: $spacing-s;
+  margin-bottom: $spacing-s;
+  cursor: pointer;
+  transition: all $transition-speed $transition-type;
+  font-size: $font-size-l;
+
+  &:hover {
+    background-color: $color-button-hover;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background-color: $color-button-disabled;
+    color: $color-text-subtle;
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    &:hover {
+      background-color: $color-button-disabled;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// Control buttons
+.control-button {
+  background-color: $color-button;
+  color: $color-text-primary;
+  font-weight: 500;
+  padding: $spacing-xs $spacing-l;
+  width: 100%;
+  height: 28px;
+  border-radius: $border-radius-l;
+  transition: all $transition-speed $transition-type;
+  margin: 3px;
+  font-size: $font-size-l;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  &:hover {
+    background-color: $color-button-hover;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Tree buttons
+.tree-button {
+  background-color: $color-button;
+  color: $color-text-primary;
+  font-size: $font-size-s;
+  padding: $spacing-xxs $spacing-s;
+  border-radius: $border-radius-m;
+  transition: all $transition-speed $transition-type;
+  margin: 0 $spacing-xxs;
+  height: 22px;
+  width: 30px;
+  text-align: center;
+
+  &:hover {
+    background-color: $color-button-hover;
+  }
+
+  &:disabled {
+    background-color: $color-button-disabled;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    &:hover {
+      background-color: $color-button-disabled;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// Test buttons
+.test-button {
+  background-color: $color-text-primary;
+  color: $color-text-primary;
+  font-weight: bold;
+  padding: $spacing-m $spacing-xl;
+  width: 180px;
+  border-radius: $border-radius-xl;
+  transition: all $transition-speed $transition-type;
+  margin: $spacing-xs;
+
+  &:hover {
+    background-color: $color-button-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}

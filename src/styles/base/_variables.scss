@@ -1,0 +1,67 @@
+// Colors
+$color-background-primary: #111;
+$color-background-secondary: #1a1a1a;
+$color-background-tertiary: #2a2a2a;
+$color-background-highlight: rgba(255, 255, 255, 0.05);
+
+$color-text-primary: #fff;
+$color-text-secondary: #ddd;
+$color-text-muted: #aaa;
+$color-text-subtle: #888;
+$color-text-code: #a0aec0;
+
+$color-border: #4a5568;
+
+$color-success: #4ade80;
+$color-success-bg: rgba(74, 222, 128, 0.1);
+$color-error: #ef4444;
+$color-error-bg: rgba(220, 38, 38, 0.1);
+$color-error-border: rgba(220, 38, 38, 0.6);
+$color-error-bg-light: rgba(220, 38, 38, 0.2);
+$color-info: #63b3ed;
+$color-info-bg: rgba(66, 153, 225, 0.1);
+$color-info-border: rgba(66, 153, 225, 0.6);
+
+$color-button: #3a3a3a;
+$color-button-hover: #555;
+$color-button-disabled: #2a2a2a;
+
+// Performance monitor variables
+$primary-color: #4299e1;
+$accent-color: #38b2ac;
+$text-primary: $color-text-primary;
+$text-secondary: $color-text-secondary;
+$border-color: $color-border;
+
+// Spacing
+$spacing-xxs: 2px;
+$spacing-xs: 4px;
+$spacing-s: 6px;
+$spacing-m: 8px;
+$spacing-l: 12px;
+$spacing-xl: 16px;
+$spacing-xxl: 20px;
+$spacing-xxxl: 24px;
+
+// Typography
+$font-size-xs: 0.7rem;
+$font-size-s: 0.75rem;
+$font-size-sm: 0.8rem;
+$font-size-m: 0.85rem;
+$font-size-l: 0.9rem;
+$font-size-xl: 1rem;
+$font-size-xxl: 1.5rem;
+
+// Borders
+$border-radius-s: 2px;
+$border-radius-m: 3px;
+$border-radius-l: 4px;
+$border-radius-xl: 6px;
+
+// Animation
+$transition-speed: 0.2s;
+$transition-type: ease;
+
+// Layout
+$sidebar-width: 350px;
+$header-height: 44px;

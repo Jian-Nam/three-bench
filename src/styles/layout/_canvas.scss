@@ -1,0 +1,13 @@
+.canvas-container {
+  flex: 1;
+  background-color: $color-background-primary;
+  min-width: 500px;
+  height: calc(100vh - $header-height);
+  margin-top: $header-height; /* Space for tabs */
+}
+
+.test-canvas {
+  flex: 1;
+  background-color: $color-background-primary;
+  width: 100%;
+}

@@ -1,0 +1,40 @@
+.test-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.test-controls {
+  background-color: #222;
+  color: $color-text-primary;
+  padding: $spacing-xxl;
+  margin-top: $header-height; /* Space for tabs */
+  width: 100%;
+  text-align: left;
+}
+
+.test-buttons {
+  display: flex;
+  gap: $spacing-m;
+  margin-bottom: $spacing-xl;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.test-info {
+  margin-top: $spacing-xl;
+  font-size: 14px;
+  max-width: 1200px;
+  margin-left: 0;
+  text-align: left;
+
+  ul {
+    margin-top: $spacing-m;
+    padding-left: $spacing-xxl;
+    text-align: left;
+  }
+}

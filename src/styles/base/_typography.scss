@@ -1,0 +1,64 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: $spacing-m;
+  color: $color-text-primary;
+}
+
+h1 {
+  font-size: $font-size-xxl;
+}
+
+h2 {
+  font-size: $font-size-xl;
+}
+
+h3 {
+  font-size: $font-size-l;
+  color: $color-text-secondary;
+}
+
+p {
+  margin-bottom: $spacing-m;
+  font-size: $font-size-m;
+}
+
+pre {
+  background-color: #1a202c;
+  padding: $spacing-l;
+  border-radius: $border-radius-l;
+  overflow-x: auto;
+  font-size: $font-size-s;
+  margin-top: $spacing-l;
+  text-align: left;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.text-secondary {
+  color: $color-text-secondary;
+}
+
+.text-muted {
+  color: $color-text-muted;
+}
+
+.text-sm {
+  font-size: $font-size-sm;
+}
+
+.text-xs {
+  font-size: $font-size-xs;
+}
+
+.monospace {
+  font-family: monospace;
+}

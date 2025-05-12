@@ -1,0 +1,31 @@
+.tabs {
+  display: flex;
+  background-color: #1a202c;
+  margin-bottom: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  width: 100%;
+
+  button {
+    padding: $spacing-l $spacing-xxxl;
+    background-color: transparent;
+    border: none;
+    color: $color-text-code;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $transition-speed;
+
+    &:hover {
+      color: $color-text-primary;
+      background-color: $color-background-highlight;
+    }
+
+    &.active {
+      color: $color-text-primary;
+    }
+  }
+}

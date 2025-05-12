@@ -1,0 +1,166 @@
+.benchmark-page {
+  max-width: 100%;
+  padding: 20px;
+
+  .benchmark-header {
+    margin-bottom: 20px;
+
+    h1 {
+      color: $primary-color;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+  }
+
+  .benchmark-tabs {
+    display: flex;
+    border-bottom: 1px solid $border-color;
+    margin-bottom: 20px;
+
+    .tab-button {
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: $text-secondary;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        color: $text-primary;
+      }
+
+      &.active {
+        color: $primary-color;
+        border-bottom: 2px solid $primary-color;
+      }
+    }
+  }
+
+  .benchmark-content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+// GeometryBenchmark & MaterialBenchmark styles
+.geometry-benchmark,
+.material-benchmark {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .benchmark-controls {
+    h2 {
+      color: $accent-color;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: 14px;
+      line-height: 1.4;
+      margin-bottom: 15px;
+    }
+
+    .benchmark-button {
+      background-color: $accent-color;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: darken($accent-color, 10%);
+      }
+
+      &:disabled {
+        background-color: lighten($accent-color, 20%);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .benchmark-canvas-container {
+    height: 300px;
+    background-color: #111;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .benchmark-results {
+    h3 {
+      color: $primary-color;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .results-table-container {
+      height: 200px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+
+      .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+
+        th,
+        td {
+          text-align: left;
+          padding: 8px 12px;
+          border-bottom: 1px solid $border-color;
+        }
+
+        th {
+          font-weight: 600;
+          color: $text-secondary;
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        tr:hover {
+          background-color: rgba(0, 0, 0, 0.03);
+        }
+      }
+    }
+
+    .results-summary {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+      padding: 15px;
+
+      h4 {
+        color: $accent-color;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        padding-left: 20px;
+
+        li {
+          margin-bottom: 5px;
+          font-size: 14px;
+          color: $text-secondary;
+
+          strong {
+            color: $text-primary;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}

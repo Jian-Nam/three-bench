@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
-import { useSceneData } from "../store/sceneStore";
-import type { SceneObject } from "../store/sceneStore";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useSceneData } from "../../store/sceneStore.ts";
+import type { SceneObject } from "../../store/sceneStore.ts";
 import * as THREE from "three";
 import { observer } from "mobx-react-lite";
 import {
@@ -9,7 +9,12 @@ import {
   isObjectInstanceSame,
   registerGeometry,
   registerMaterial,
-} from "../utils/objectTracker";
+} from "../../utils/tracking/objectTracker.ts";
+import {
+  measureObjectCreation,
+  initGLTimerQuery,
+  measureGPUUploadTime,
+} from "../../utils/tracking/performanceTracker.ts";
 
 // Component for a single object in the scene
 const Object3D: React.FC<{ object: SceneObject; parentRenderId?: string }> = ({
@@ -23,6 +28,9 @@ const Object3D: React.FC<{ object: SceneObject; parentRenderId?: string }> = ({
     }`;
   }, [object.id, object.geometryType, object.materialType, parentRenderId]);
 
+  // Access the Three.js renderer
+  const { gl } = useThree();
+
   // Create refs to track the mesh and group
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
@@ -31,6 +39,7 @@ const Object3D: React.FC<{ object: SceneObject; parentRenderId?: string }> = ({
 
   // Track if this is a new render or reuse
   const firstRenderRef = useRef(true);
+  const perfMeasuredRef = useRef(false);
 
   // Register the object for tracking and check if it's the same instance
   useEffect(() => {
@@ -57,7 +66,7 @@ const Object3D: React.FC<{ object: SceneObject; parentRenderId?: string }> = ({
     object.children.length,
   ]);
 
-  // Track geometry and material instances
+  // Track geometry and material instances and measure performance
   useEffect(() => {
     if (meshRef.current) {
       const geometry = meshRef.current.geometry;
@@ -66,6 +75,24 @@ const Object3D: React.FC<{ object: SceneObject; parentRenderId?: string }> = ({
       // Register geometry and material for tracking
       registerGeometry(object.id, object.geometryType, geometry);
       registerMaterial(object.id, object.materialType, material);
+
+      // Measure performance if not already measured for this instance
+      if (!perfMeasuredRef.current && !firstRenderRef.current) {
+        measureObjectCreation(
+          object.id,
+          object.name,
+          meshRef.current,
+          object.geometryType,
+          object.materialType
+        );
+
+        // Try to measure GPU upload time if WebGL Timer Query extension is supported
+        if (gl && gl instanceof THREE.WebGLRenderer) {
+          measureGPUUploadTime(object.id, gl, geometry);
+        }
+
+        perfMeasuredRef.current = true;
+      }
 
       // Only log on updates, not first render
       if (!firstRenderRef.current) {
@@ -181,6 +208,17 @@ const Object3D: React.FC<{ object: SceneObject; parentRenderId?: string }> = ({
 // Main component that renders the scene
 const SceneContentComponent = () => {
   const sceneData = useSceneData();
+  const { gl } = useThree();
+
+  // Initialize WebGL Timer Query extension if available
+  useEffect(() => {
+    if (gl && gl instanceof THREE.WebGLRenderer) {
+      const glContext = gl.getContext();
+      if (glContext) {
+        initGLTimerQuery(glContext);
+      }
+    }
+  }, [gl]);
 
   return (
     <>

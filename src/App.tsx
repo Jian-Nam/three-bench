@@ -1,24 +1,93 @@
 import { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stats } from "@react-three/drei";
-import "./App.css";
-import SceneContent from "./components/SceneContent.tsx";
+import "./styles/main.scss";
+import SceneContent from "./components/scene/SceneContent.tsx";
 import TestPage from "./components/TestPage.tsx";
+import BenchmarkPage from "./components/TestPages/BenchmarkPage.tsx";
 import { useSceneStore } from "./store/sceneStore.ts";
-import Controls from "./components/Controls.tsx";
-import ObjectIdentityTracker from "./components/ObjectIdentityTracker.tsx";
+import Controls from "./components/controls/Controls.tsx";
+import {
+  ObjectIdentityTracker,
+  PerformanceMonitor,
+} from "./components/object-tracking";
 import { observer } from "mobx-react-lite";
-import { clearTrackedObjects } from "./utils/objectTracker.ts";
+import { clearTrackedObjects } from "./utils/tracking/objectTracker";
+import { clearPerformanceMetrics } from "./utils/tracking/performanceTracker";
 
 const AppComponent = () => {
   const store = useSceneStore();
   const [showStats, setShowStats] = useState(false);
-  const [activeTab, setActiveTab] = useState<"hierarchy" | "test">("hierarchy");
+  const [activeTab, setActiveTab] = useState<
+    "hierarchy" | "test" | "benchmark"
+  >("hierarchy");
 
   useEffect(() => {
-    // Initialize the scene
     store.resetScene();
   }, [store]);
+
+  const resetTracker = () => {
+    clearTrackedObjects();
+    clearPerformanceMetrics();
+    // Dispatch event to notify tracker
+    window.dispatchEvent(new Event("tracker-reset"));
+  };
+
+  if (activeTab === "test") {
+    return (
+      <div className="app-container">
+        <div className="tabs">
+          <button
+            className={activeTab === "hierarchy" ? "active" : ""}
+            onClick={() => setActiveTab("hierarchy")}
+          >
+            Hierarchy Example
+          </button>
+          <button
+            className={activeTab === "test" ? "active" : ""}
+            onClick={() => setActiveTab("test")}
+          >
+            Test Page
+          </button>
+          <button
+            className={activeTab === "benchmark" ? "active" : ""}
+            onClick={() => setActiveTab("benchmark")}
+          >
+            Performance Tests
+          </button>
+        </div>
+        <TestPage showStats={showStats} />
+      </div>
+    );
+  }
+
+  if (activeTab === "benchmark") {
+    return (
+      <div className="app-container">
+        <div className="tabs">
+          <button
+            className={activeTab === "hierarchy" ? "active" : ""}
+            onClick={() => setActiveTab("hierarchy")}
+          >
+            Hierarchy Example
+          </button>
+          <button
+            className={activeTab === "test" ? "active" : ""}
+            onClick={() => setActiveTab("test")}
+          >
+            Test Page
+          </button>
+          <button
+            className={activeTab === "benchmark" ? "active" : ""}
+            onClick={() => setActiveTab("benchmark")}
+          >
+            Performance Tests
+          </button>
+        </div>
+        <BenchmarkPage />
+      </div>
+    );
+  }
 
   return (
     <div className="app-container">
@@ -27,58 +96,52 @@ const AppComponent = () => {
           className={activeTab === "hierarchy" ? "active" : ""}
           onClick={() => setActiveTab("hierarchy")}
         >
-          Hierarchy Test
+          Hierarchy Example
         </button>
         <button
           className={activeTab === "test" ? "active" : ""}
           onClick={() => setActiveTab("test")}
         >
-          Performance Test
+          Test Page
+        </button>
+        <button
+          className={activeTab === "benchmark" ? "active" : ""}
+          onClick={() => setActiveTab("benchmark")}
+        >
+          Performance Tests
         </button>
       </div>
-
-      {activeTab === "hierarchy" ? (
-        // Hierarchy Test Page
-        <>
-          <div className="controls-panel">
-            <h1>R3F Hierarchy Test</h1>
-            <Controls
-              onRandomize={() => store.randomizeScene()}
-              onReset={() => store.resetScene()}
-              showStats={showStats}
-              onToggleStats={() => setShowStats(!showStats)}
-            />
-          </div>
-          <div className="canvas-container">
-            <Canvas camera={{ position: [0, 2, 5], fov: 75 }}>
-              <SceneContent />
-              <OrbitControls />
-              {showStats && <Stats />}
-            </Canvas>
-          </div>
-
-          <div className="tracker-panel">
-            <h1>Object Tracking</h1>
-            <div className="tracker-actions">
-              <button
-                className="control-button"
-                onClick={() => clearTrackedObjects()}
-              >
-                Reset Object Tracking
-              </button>
-            </div>
-            <ObjectIdentityTracker />
-          </div>
-        </>
-      ) : (
-        // Performance Test Page
-        <TestPage showStats={showStats} />
-      )}
+      <div className="controls-panel">
+        <h3>Scene Controls</h3>
+        <Controls />
+        <div className="stats-toggle">
+          <input
+            type="checkbox"
+            id="stats-toggle"
+            checked={showStats}
+            onChange={() => setShowStats(!showStats)}
+          />
+          <label htmlFor="stats-toggle">Show Stats</label>
+        </div>
+      </div>
+      <div className="canvas-container">
+        <Canvas shadows>
+          {showStats && <Stats />}
+          <OrbitControls makeDefault />
+          <color attach="background" args={["#111"]} />
+          <SceneContent />
+        </Canvas>
+      </div>
+      <div className="tracker-panel">
+        <div className="tracker-actions">
+          <button onClick={resetTracker}>Reset Object Tracking</button>
+        </div>
+        <ObjectIdentityTracker />
+        <PerformanceMonitor />
+      </div>
     </div>
   );
 };
 
-// Use observer in a separate step
 const App = observer(AppComponent);
-
 export default App;

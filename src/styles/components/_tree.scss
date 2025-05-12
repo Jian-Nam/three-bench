@@ -1,0 +1,70 @@
+.object-tree {
+  margin-top: $spacing-m;
+  border-left: 1px solid $color-border;
+}
+
+.object-tree-item {
+  position: relative;
+  padding: $spacing-xs 0;
+  transition: background-color $transition-speed $transition-type;
+
+  &:hover {
+    background-color: $color-background-highlight;
+  }
+
+  &.selected {
+    background-color: #2d3748;
+  }
+}
+
+.object-tree-content {
+  display: flex;
+  align-items: center;
+  padding: $spacing-xs $spacing-m;
+  cursor: pointer;
+  border-radius: $border-radius-m;
+}
+
+.object-name {
+  font-size: $font-size-l;
+  margin-right: $spacing-m;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
+}
+
+.object-type {
+  font-size: $font-size-xs;
+  color: $color-text-code;
+  padding: 1px $spacing-xs;
+  background-color: rgba(160, 174, 192, 0.1);
+  border-radius: $border-radius-m;
+  margin-right: $spacing-m;
+}
+
+.object-actions {
+  margin-left: auto;
+  display: flex;
+  gap: $spacing-xxs;
+}
+
+.tree-indent {
+  position: relative;
+  padding-left: $spacing-xxl;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: $color-border;
+  }
+}
+
+.hidden-item {
+  opacity: 0.5;
+  text-decoration: line-through;
+}

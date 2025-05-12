@@ -1,0 +1,188 @@
+.identity-tracker {
+  margin-top: $spacing-m;
+  background-color: transparent;
+  border-radius: 0;
+
+  h3 {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-m;
+    color: $color-text-secondary;
+  }
+}
+
+.identity-info {
+  margin-bottom: $spacing-l;
+  font-size: $font-size-s;
+  color: $color-text-muted;
+
+  p {
+    margin: $spacing-xs 0;
+  }
+}
+
+.identity-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-s;
+}
+
+.identity-item {
+  padding: $spacing-m $spacing-m;
+  background-color: $color-background-tertiary;
+  border-radius: $border-radius-m;
+  font-size: $font-size-m;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  transition: background-color 0.3s ease;
+
+  &.identity-changed {
+    background-color: $color-error-bg-light;
+    border-left: 3px solid $color-error-border;
+  }
+}
+
+.identity-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-xs;
+  width: 100%;
+}
+
+.identity-name {
+  font-weight: 500;
+  color: $color-text-primary;
+  margin-right: $spacing-m;
+}
+
+.identity-id {
+  color: $color-text-subtle;
+  margin-right: $spacing-m;
+  font-family: monospace;
+}
+
+.identity-details {
+  display: flex;
+  flex-direction: column;
+  margin-top: $spacing-s;
+  width: 100%;
+  gap: 3px;
+}
+
+.identity-group {
+  padding: $spacing-s $spacing-m;
+  background-color: $color-background-highlight;
+  border-radius: $border-radius-m;
+  margin-bottom: $spacing-xs;
+  width: 100%;
+
+  &.identity-changed {
+    background-color: $color-error-bg;
+    border-left: 2px solid $color-error-border;
+  }
+}
+
+.identity-group-header {
+  font-weight: 500;
+  margin-bottom: $spacing-xs;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+}
+
+.identity-status {
+  color: $color-success;
+  font-family: monospace;
+  font-size: $font-size-sm;
+  border-radius: $border-radius-m;
+  padding: $spacing-xxs $spacing-xs;
+  background-color: $color-success-bg;
+  display: flex;
+  justify-content: space-between;
+
+  &.identity-changed {
+    color: $color-error;
+    background-color: $color-error-bg;
+  }
+}
+
+.identity-changed {
+  color: $color-error;
+}
+
+.identity-notice {
+  padding: $spacing-xs $spacing-m;
+  background-color: $color-info-bg;
+  border-left: 2px solid $color-info-border;
+  border-radius: $border-radius-s;
+  color: $color-info;
+  font-size: $font-size-sm;
+  margin-top: $spacing-m;
+}
+
+.identity-type {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  font-weight: normal;
+}
+
+.uuid-info {
+  display: flex;
+  align-items: center;
+  font-size: $font-size-xs;
+  padding: $spacing-xxs $spacing-xs;
+  border-radius: $border-radius-s;
+  gap: $spacing-xs;
+
+  &.uuid-changed {
+    color: $color-error;
+  }
+}
+
+.uuid-label {
+  font-weight: 500;
+  color: $color-text-muted;
+  margin-right: $spacing-xs;
+}
+
+.uuid-current {
+  font-family: monospace;
+  color: $color-success;
+}
+
+.uuid-info.uuid-changed .uuid-current {
+  color: $color-error;
+}
+
+.uuid-previous {
+  font-family: monospace;
+  color: $color-text-subtle;
+  margin-left: $spacing-xs;
+  font-size: $font-size-xs;
+}
+
+.uuid-value {
+  color: $color-error;
+  text-decoration: line-through;
+}
+
+.tracker-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: $spacing-l;
+}
+
+.identity-attributes {
+  margin-top: $spacing-s;
+  padding: $spacing-s;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: $border-radius-m;
+  font-size: $font-size-sm;
+  width: 100%;
+}
+
+.identity-attributes-header {
+  font-weight: 500;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-xs;
+  font-size: $font-size-s;
+}

@@ -1,21 +1,26 @@
 import React, { useState } from "react";
-import { useSceneData, useSceneStore } from "../store/sceneStore";
-import type { SceneObject } from "../store/sceneStore";
+import { useSceneData, useSceneStore } from "../../store/sceneStore";
+import type { SceneObject } from "../../store/sceneStore";
 import { observer } from "mobx-react-lite";
 
 interface ControlsProps {
-  onRandomize: () => void;
-  onReset: () => void;
-  showStats: boolean;
-  onToggleStats: () => void;
+  onRandomize?: () => void;
+  onReset?: () => void;
+  showStats?: boolean;
+  onToggleStats?: () => void;
 }
 
 // Controls panel for the 3D scene
 const ControlsComponent = (props: ControlsProps) => {
-  const { onRandomize, onReset, showStats, onToggleStats } = props;
+  const store = useSceneStore();
+
+  // 기본값 제공 또는 store에서 직접 메서드 사용
+  const onRandomize = props.onRandomize || (() => store.randomizeScene());
+  const onReset = props.onReset || (() => store.resetScene());
+  const showStats = props.showStats || false;
+  const onToggleStats = props.onToggleStats || (() => {});
 
   const sceneData = useSceneData();
-  const store = useSceneStore();
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
   const [showSceneData, setShowSceneData] = useState(false);
 
@@ -40,30 +45,19 @@ const ControlsComponent = (props: ControlsProps) => {
   // Function to render object tree
   const renderObjectTree = (objects: SceneObject[], depth = 0) => {
     return objects.map((obj) => (
-      <div key={obj.id} style={{ marginLeft: `${depth * 20}px` }}>
+      <div key={obj.id} className="object-tree-item">
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "4px 0",
-            backgroundColor:
-              selectedObjectId === obj.id ? "#2d3748" : "transparent",
-            cursor: "pointer",
-          }}
+          className={`object-tree-content ${
+            selectedObjectId === obj.id ? "selected" : ""
+          }`}
           onClick={() => setSelectedObjectId(obj.id)}
         >
-          <span
-            style={{
-              marginRight: "8px",
-              opacity: obj.visible ? 1 : 0.5,
-              textDecoration: obj.visible ? "none" : "line-through",
-              fontSize: "0.8rem",
-            }}
-          >
-            {obj.name} ({obj.geometryType})
+          <span className={`object-name ${!obj.visible ? "hidden-item" : ""}`}>
+            {obj.name}
           </span>
+          <span className="object-type">{obj.geometryType}</span>
 
-          <div style={{ marginLeft: "auto", display: "flex", gap: "4px" }}>
+          <div className="object-actions">
             <button
               className="tree-button"
               onClick={(e) => {
@@ -100,7 +94,11 @@ const ControlsComponent = (props: ControlsProps) => {
           </div>
         </div>
 
-        {obj.children.length > 0 && renderObjectTree(obj.children, depth + 1)}
+        {obj.children.length > 0 && (
+          <div className="tree-indent">
+            {renderObjectTree(obj.children, depth + 1)}
+          </div>
+        )}
       </div>
     ));
   };
@@ -137,10 +135,10 @@ const ControlsComponent = (props: ControlsProps) => {
 
       <div className="control-group">
         <h2>Object Tree</h2>
-        {renderObjectTree(sceneData.root)}
+        <div className="object-tree">{renderObjectTree(sceneData.root)}</div>
 
         {selectedObjectId && (
-          <div style={{ marginTop: "8px" }}>
+          <div className="selected-object-actions">
             <button
               className="control-button"
               onClick={() => {
@@ -186,15 +184,17 @@ const ControlsComponent = (props: ControlsProps) => {
         </div>
       </div>
 
-      <div className="stats-toggle">
-        <input
-          type="checkbox"
-          id="stats"
-          checked={showStats}
-          onChange={onToggleStats}
-        />
-        <label htmlFor="stats">Show Stats</label>
-      </div>
+      {props.onToggleStats && (
+        <div className="stats-toggle">
+          <input
+            type="checkbox"
+            id="stats"
+            checked={showStats}
+            onChange={onToggleStats}
+          />
+          <label htmlFor="stats">Show Stats</label>
+        </div>
+      )}
 
       {showSceneData && (
         <div className="control-group">
@@ -206,7 +206,5 @@ const ControlsComponent = (props: ControlsProps) => {
   );
 };
 
-// Use observer in a separate variable
 const Controls = observer(ControlsComponent);
-
 export default Controls;
