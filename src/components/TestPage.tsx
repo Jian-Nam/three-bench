@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stats } from "@react-three/drei";
 import MemoTest from "./MemoTest";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSceneData, useSceneStore } from "../../store/sceneStore";
 import type { SceneObject } from "../../store/sceneStore";
 import { observer } from "mobx-react-lite";
