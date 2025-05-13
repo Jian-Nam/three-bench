@@ -4,7 +4,7 @@ interface GeometryBenchmarkResultProps {
   results: GeometryTestResult[];
 }
 
-export const GeometryBenchmarkResult = ({
+export const GeometryBenchmarkResultMatrix = ({
   results,
 }: GeometryBenchmarkResultProps) => {
   return (
@@ -19,7 +19,8 @@ export const GeometryBenchmarkResult = ({
               <tr>
                 <th>Geometry</th>
                 <th>Vertices</th>
-                <th>Creation Time</th>
+                <th>Geometry Creation Time</th>
+                <th>Mesh Creation Time</th>
               </tr>
             </thead>
             <tbody>

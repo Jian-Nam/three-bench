@@ -1,6 +1,6 @@
 .tabs {
   display: flex;
-  background-color: #1a202c;
+  background-color: $color-background-primary;
   margin-bottom: 0;
   position: absolute;
   top: 0;
@@ -8,9 +8,11 @@
   right: 0;
   z-index: 10;
   width: 100%;
+  border-bottom: 1px solid $color-border;
 
+  a,
   button {
-    padding: $spacing-l $spacing-xxxl;
+    padding: $spacing-l $spacing-xxl;
     background-color: transparent;
     border: none;
     color: $color-text-code;
@@ -18,14 +20,18 @@
     font-weight: 500;
     cursor: pointer;
     transition: all $transition-speed;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 
     &:hover {
       color: $color-text-primary;
-      background-color: $color-background-highlight;
+      // background-color: $color-background-highlight;
     }
 
     &.active {
-      color: $color-text-primary;
+      color: $color-info;
+      border-bottom: 2px solid $color-info;
     }
   }
 }

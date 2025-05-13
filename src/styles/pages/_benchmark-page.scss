@@ -1,18 +1,26 @@
 .benchmark-page {
-  max-width: 100%;
+  max-width: 800px;
   padding: 20px;
+  height: 100vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .benchmark-header {
     margin-bottom: 20px;
 
     h1 {
-      color: $primary-color;
+      color: $text-primary;
       font-size: 24px;
       margin-bottom: 10px;
     }
 
     p {
-      color: $text-secondary;
+      color: $text-primary;
       font-size: 14px;
       line-height: 1.4;
     }
@@ -32,6 +40,8 @@
       color: $text-secondary;
       cursor: pointer;
       transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
 
       &:hover {
         color: $text-primary;
@@ -58,12 +68,6 @@
   gap: 20px;
 
   .benchmark-controls {
-    h2 {
-      color: $accent-color;
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
     p {
       color: $text-secondary;
       font-size: 14px;
@@ -72,10 +76,10 @@
     }
 
     .benchmark-button {
-      background-color: $accent-color;
+      background-color: $primary-color;
       color: white;
       border: none;
-      padding: 8px 16px;
+      padding: 8px;
       border-radius: 4px;
       font-size: 14px;
       font-weight: 500;
@@ -83,11 +87,11 @@
       transition: background-color 0.2s;
 
       &:hover {
-        background-color: darken($accent-color, 10%);
+        background-color: darken($primary-color, 10%);
       }
 
       &:disabled {
-        background-color: lighten($accent-color, 20%);
+        background-color: lighten($primary-color, 20%);
         cursor: not-allowed;
       }
     }
@@ -142,7 +146,7 @@
       padding: 15px;
 
       h4 {
-        color: $accent-color;
+        color: $primary-color;
         font-size: 16px;
         margin-bottom: 10px;
       }

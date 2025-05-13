@@ -1,16 +1,16 @@
 // Colors
-$color-background-primary: #111;
-$color-background-secondary: #1a1a1a;
-$color-background-tertiary: #2a2a2a;
-$color-background-highlight: rgba(255, 255, 255, 0.05);
+$color-background-primary: #fff;
+$color-background-secondary: #eee;
+$color-background-tertiary: #ddd;
+$color-background-highlight: #ccc;
 
-$color-text-primary: #fff;
-$color-text-secondary: #ddd;
-$color-text-muted: #aaa;
-$color-text-subtle: #888;
-$color-text-code: #a0aec0;
+$color-text-primary: #111;
+$color-text-secondary: #1a1a1a;
+$color-text-muted: #222;
+$color-text-subtle: #2a2a2a;
+$color-text-code: #333;
 
-$color-border: #4a5568;
+$color-border: #ccc;
 
 $color-success: #4ade80;
 $color-success-bg: rgba(74, 222, 128, 0.1);
@@ -22,9 +22,9 @@ $color-info: #63b3ed;
 $color-info-bg: rgba(66, 153, 225, 0.1);
 $color-info-border: rgba(66, 153, 225, 0.6);
 
-$color-button: #3a3a3a;
-$color-button-hover: #555;
-$color-button-disabled: #2a2a2a;
+$color-button: #fff;
+$color-button-hover: #eee;
+$color-button-disabled: #ddd;
 
 // Performance monitor variables
 $primary-color: #4299e1;

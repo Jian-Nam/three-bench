@@ -17,30 +17,9 @@ const ControlsComponent = (props: ControlsProps) => {
   // 기본값 제공 또는 store에서 직접 메서드 사용
   const onRandomize = props.onRandomize || (() => store.randomizeScene());
   const onReset = props.onReset || (() => store.resetScene());
-  const showStats = props.showStats || false;
-  const onToggleStats = props.onToggleStats || (() => {});
 
   const sceneData = useSceneData();
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
-  const [showSceneData, setShowSceneData] = useState(false);
-
-  // Track performance metrics
-  const [performanceData, setPerformanceData] = useState<{
-    objectCount: number;
-    sceneUpdateTime: number;
-    lastUpdateTimestamp: number;
-  }>({
-    objectCount: 0,
-    sceneUpdateTime: 0,
-    lastUpdateTimestamp: 0,
-  });
-
-  // Function to count total objects in the scene
-  const countObjects = (objects: SceneObject[]): number => {
-    return objects.reduce((count, obj) => {
-      return count + 1 + countObjects(obj.children);
-    }, 0);
-  };
 
   // Function to render object tree
   const renderObjectTree = (objects: SceneObject[], depth = 0) => {
@@ -103,18 +82,6 @@ const ControlsComponent = (props: ControlsProps) => {
     ));
   };
 
-  // Update performance metrics when scene changes
-  React.useEffect(() => {
-    const totalObjects = countObjects(sceneData.root);
-    const updateTime = Date.now() - sceneData.lastUpdateTimestamp;
-
-    setPerformanceData({
-      objectCount: totalObjects,
-      sceneUpdateTime: updateTime,
-      lastUpdateTimestamp: sceneData.lastUpdateTimestamp,
-    });
-  }, [sceneData]);
-
   return (
     <div className="controls">
       <div className="control-group">
@@ -124,12 +91,6 @@ const ControlsComponent = (props: ControlsProps) => {
         </button>
         <button className="control-button" onClick={onRandomize}>
           Randomize Scene
-        </button>
-        <button
-          className="control-button"
-          onClick={() => setShowSceneData(!showSceneData)}
-        >
-          {showSceneData ? "Hide" : "Show"} Scene Data
         </button>
       </div>
 
@@ -173,35 +134,6 @@ const ControlsComponent = (props: ControlsProps) => {
           Add Object {selectedObjectId ? "as Child" : "to Root"}
         </button>
       </div>
-
-      <div className="control-group">
-        <h2>Performance</h2>
-        <div>
-          Objects: <strong>{performanceData.objectCount}</strong>
-        </div>
-        <div>
-          Last update: <strong>{performanceData.sceneUpdateTime}ms</strong>
-        </div>
-      </div>
-
-      {props.onToggleStats && (
-        <div className="stats-toggle">
-          <input
-            type="checkbox"
-            id="stats"
-            checked={showStats}
-            onChange={onToggleStats}
-          />
-          <label htmlFor="stats">Show Stats</label>
-        </div>
-      )}
-
-      {showSceneData && (
-        <div className="control-group">
-          <h2>Raw Scene Data</h2>
-          <pre>{JSON.stringify(sceneData, null, 2)}</pre>
-        </div>
-      )}
     </div>
   );
 };

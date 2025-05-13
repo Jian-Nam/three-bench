@@ -4,16 +4,12 @@ button {
   color: $color-text-primary;
   border: none;
   padding: $spacing-xs $spacing-l;
-  border-radius: $border-radius-l;
-  margin-right: $spacing-s;
-  margin-bottom: $spacing-s;
   cursor: pointer;
   transition: all $transition-speed $transition-type;
   font-size: $font-size-l;
 
   &:hover {
     background-color: $color-button-hover;
-    transform: translateY(-1px);
   }
 
   &:disabled {
@@ -47,7 +43,6 @@ button {
 
   &:hover {
     background-color: $color-button-hover;
-    transform: translateY(-1px);
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   }
 }
@@ -77,31 +72,9 @@ button {
 
     &:hover {
       background-color: $color-button-disabled;
-      transform: none;
       box-shadow: none;
     }
   }
 }
 
 // Test buttons
-.test-button {
-  background-color: $color-text-primary;
-  color: $color-text-primary;
-  font-weight: bold;
-  padding: $spacing-m $spacing-xl;
-  width: 180px;
-  border-radius: $border-radius-xl;
-  transition: all $transition-speed $transition-type;
-  margin: $spacing-xs;
-
-  &:hover {
-    background-color: $color-button-hover;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-}

@@ -1,4 +1,3 @@
-import type { GeometryTestResult } from "./GeometryBenchmark";
 import {
   ScatterChart,
   Scatter,
@@ -9,42 +8,43 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import type { MaterialTestResult } from "./MaterialBenchmark";
 
-interface GeometryBenchmarkResultProps {
-  results: GeometryTestResult[];
+interface MaterialBenchmarkResultProps {
+  results: MaterialTestResult[];
 }
-interface GeometryTestData {
+interface MaterialTestData {
   x: number;
   y: number;
   name: string;
 }
 
-export const GeometryBenchmarkResultGraph = ({
+export const MaterialBenchmarkResultGraph = ({
   results,
-}: GeometryBenchmarkResultProps) => {
-  const geometryColors = {
-    geometryInstancing: "#0088fe",
-    meshInstancing: "#808080",
+}: MaterialBenchmarkResultProps) => {
+  const materialColors = {
+    textureInstancing: "#0088fe",
+    materialInstancing: "#808080",
   };
 
   // 지오메트리 유형별 데이터 분류
-  const getDataByGeometryType = () => {
-    const dataByType: Record<string, GeometryTestData[]> = {};
-    dataByType["geometryInstancing"] = [];
-    dataByType["meshInstancing"] = [];
+  const getDataByMaterialType = () => {
+    const dataByType: Record<string, MaterialTestData[]> = {};
+    dataByType["materialInstancing"] = [];
+    dataByType["textureInstancing"] = [];
 
     results.forEach((result) => {
-      dataByType["geometryInstancing"].push({
-        x: result.vertexCount,
-        y: result.geometryInstanceCreationTime,
+      dataByType["textureInstancing"].push({
+        x: result.textureSize,
+        y: result.textureCreationTime,
         name: `${result.type} (${Object.entries(result.parameters)
           .map(([k, v]) => `${k}: ${v}`)
           .join(", ")})`,
       });
 
-      dataByType["meshInstancing"].push({
-        x: result.vertexCount,
-        y: result.meshInstancingTime,
+      dataByType["materialInstancing"].push({
+        x: result.textureSize,
+        y: result.materialCreationTime,
         name: `${result.type} (${Object.entries(result.parameters)
           .map(([k, v]) => `${k}: ${v}`)
           .join(", ")})`,
@@ -56,16 +56,16 @@ export const GeometryBenchmarkResultGraph = ({
 
   return (
     <div style={{ width: "100%", height: 400, marginBottom: 30 }}>
-      <h4>Vertices vs Creation Time</h4>
+      <h4>Size vs Creation Time</h4>
       <ResponsiveContainer width="100%" height="100%">
         <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
           <CartesianGrid />
           <XAxis
             type="number"
             dataKey="x"
-            name="Vertices"
+            name="Size"
             label={{
-              value: "Vertices",
+              value: "Size",
               position: "insideBottomRight",
               offset: -10,
             }}
@@ -110,12 +110,12 @@ export const GeometryBenchmarkResultGraph = ({
           />
           <Legend />
           {/* 각 지오메트리 유형별로 다른 색상의 Scatter 추가 */}
-          {Object.entries(getDataByGeometryType()).map(([type, data]) => (
+          {Object.entries(getDataByMaterialType()).map(([type, data]) => (
             <Scatter
               key={type}
               name={type}
               data={data}
-              fill={geometryColors[type as keyof typeof geometryColors]}
+              fill={materialColors[type as keyof typeof materialColors]}
             />
           ))}
         </ScatterChart>

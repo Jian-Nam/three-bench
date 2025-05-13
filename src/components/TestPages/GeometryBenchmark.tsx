@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { measureGeometryPerformance } from "./TestGeometry";
-import { GeometryBenchmarkResult } from "./GeometryBenchmarkResult";
+import { measureGeometryPerformance } from "./measureGeometryPerformace";
+import { GeometryBenchmarkResultMatrix } from "./GeometryBenchmarkResultMatrix";
 import { GeometryBenchmarkResultGraph } from "./GeometryBenchmarkResultGraph";
 
 export interface GeometryTestResult {
@@ -81,39 +81,6 @@ const GeometryBenchmark: React.FC = () => {
 
   // Define the presets for various geometry tests, separated by complexity
   const getTestPresets = useCallback(() => {
-    // Basic tests (fewer and less complex geometries)
-    const basicTests = {
-      box: [{ widthSegments: 1, heightSegments: 1, depthSegments: 1 }],
-      sphere: [{ radius: 1, widthSegments: 8, heightSegments: 6 }],
-      cylinder: [{ radialSegments: 8, heightSegments: 1 }],
-      plane: [{ width: 10, height: 10, widthSegments: 1, heightSegments: 1 }],
-      torus: [{ radius: 1, tube: 0.4, radialSegments: 8, tubularSegments: 24 }],
-    };
-
-    // All tests, including more complex ones
-    const allTests = {
-      box: [
-        { widthSegments: 1, heightSegments: 1, depthSegments: 1 },
-        { widthSegments: 5, heightSegments: 5, depthSegments: 5 },
-      ],
-      sphere: [
-        { radius: 1, widthSegments: 8, heightSegments: 6 },
-        { radius: 1, widthSegments: 16, heightSegments: 12 },
-      ],
-      cylinder: [
-        { radialSegments: 8, heightSegments: 1 },
-        { radialSegments: 16, heightSegments: 1 },
-      ],
-      plane: [
-        { width: 10, height: 10, widthSegments: 1, heightSegments: 1 },
-        { width: 10, height: 10, widthSegments: 10, heightSegments: 10 },
-      ],
-      torus: [
-        { radius: 1, tube: 0.4, radialSegments: 8, tubularSegments: 24 },
-        { radius: 1, tube: 0.4, radialSegments: 12, tubularSegments: 48 },
-      ],
-    };
-
     // Extreme tests (high-resolution geometries)
     const extremeTests = {
       box: [
@@ -151,20 +118,17 @@ const GeometryBenchmark: React.FC = () => {
 
     const randomTests = createRandomTest();
 
-    return { basicTests, allTests, extremeTests, randomTests };
+    return { extremeTests, randomTests };
   }, []);
 
   // Function to generate test configurations
   const generateTests = useCallback(() => {
     const configs: Array<{ type: string; params: Record<string, number> }> = [];
-    const { basicTests, allTests, extremeTests, randomTests } =
-      getTestPresets();
+    const { extremeTests, randomTests } = getTestPresets();
 
     let selectedPresets;
-    if (testMode === "basic") {
-      selectedPresets = basicTests;
-    } else if (testMode === "all") {
-      selectedPresets = allTests;
+    if (testMode === "extreme") {
+      selectedPresets = extremeTests;
     } else if (testMode === "random") {
       selectedPresets = randomTests;
     } else {
@@ -183,14 +147,14 @@ const GeometryBenchmark: React.FC = () => {
   }, [testMode, getTestPresets]);
 
   const forceGarbageCollection = useCallback(() => {
-    if (typeof window !== "undefined" && (window as any).gc) {
-      try {
-        (window as any).gc();
-      } catch (_) {
-        console.log("Could not force garbage collection");
-      }
+    try {
+      // @ts-expect-error not defined in browser
+      window.gc();
+    } catch (error) {
+      console.log("Could not force garbage collection", error);
     }
   }, []);
+
   // Start the benchmark tests
   const startTests = useCallback(() => {
     setResults([]);
@@ -207,34 +171,35 @@ const GeometryBenchmark: React.FC = () => {
   return (
     <div className="geometry-benchmark">
       <div className="benchmark-controls">
-        <h2>Geometry Creation Benchmark</h2>
         <p>
           This test measures the overhead of creating various Three.js
           geometries with different complexity levels. It tracks instance
-          creation time, memory usage, and GPU upload time.
+          creation time.
         </p>
 
         <div className="benchmark-options">
           <div className="test-mode-selector">
-            <label>Test Mode:</label>
-            <select
-              value={testMode}
-              onChange={(e) =>
-                setTestMode(e.target.value as "all" | "basic" | "extreme")
-              }
-            >
-              <option value="basic">Basic Tests (Fast)</option>
-              <option value="all">Standard Tests</option>
-              <option value="extreme">Extreme Tests (High Resolution)</option>
-              <option value="random">Random Tests</option>
-            </select>
+            <h2>
+              Test Mode:
+              <select
+                value={testMode}
+                onChange={(e) =>
+                  setTestMode(e.target.value as "extreme" | "random")
+                }
+              >
+                <option value="extreme">Extreme Tests (High Resolution)</option>
+                <option value="random">Random Tests</option>
+              </select>
+            </h2>
           </div>
 
-          <button className="benchmark-button" onClick={startTests}></button>
+          <button className="benchmark-button" onClick={startTests}>
+            Start Bench
+          </button>
         </div>
       </div>
       <GeometryBenchmarkResultGraph results={results} />
-      <GeometryBenchmarkResult results={results} />
+      <GeometryBenchmarkResultMatrix results={results} />
     </div>
   );
 };

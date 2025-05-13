@@ -1,5 +1,3 @@
-// import { useThree } from "@react-three/fiber";
-// import { useEffect, useRef } from "react";
 import type { GeometryTestResult } from "./GeometryBenchmark";
 import * as THREE from "three";
 
